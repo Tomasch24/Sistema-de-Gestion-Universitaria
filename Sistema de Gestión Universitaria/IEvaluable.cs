@@ -10,8 +10,8 @@ namespace Sistema_de_Gestión_Universitaria
     {
         public void AgregarCalificacion(decimal Calificacion);
 
-        public void ObtenerPromedio();
+        public decimal ObtenerPromedio();
 
-        public void HaAprovado();
+        public bool HaAprobado();
     }
 }
