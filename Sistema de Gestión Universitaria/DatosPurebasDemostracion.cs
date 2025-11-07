@@ -85,7 +85,7 @@ namespace Sistema_de_Gestión_Universitaria
                               "Pérez", "Sánchez", "Ramírez", "Torres", "Flores",
                               "Rivera", "Gómez", "Díaz", "Cruz", "Morales" };
 
-            string[] carreras = { "Ingeniería en Sistemas", "Medicina", "Derecho",
+            string[] carreras = { "Ingeniería en Software", "Medicina", "Derecho",
                              "Administración de Empresas", "Ingeniería Civil",
                              "Arquitectura", "Contabilidad", "Psicología" };
 

@@ -40,10 +40,17 @@ namespace Sistema_de_Gestión_Universitaria
     {
         public string Carrera { get; set; }
 
-        public string numeroMatricula { get; set; }
-
         [Requerido("El número de matrícula es obligatorio")]
         [Formato("XXX-XXXXX", Descripcion = "Formato: 3 dígitos, guión, 5 dígitos")]
+        public string numeroMatricula { get; set; }
+
+        //Constructor para generar el id y el numeroMatricula automaticamente
+        public Estudiante()
+        {
+            Identificacion = GeneradorIdentificaciones.GenerarIdEstudiante();
+            NumeroMatricula = GeneradorIdentificaciones.GenerarNumeroMatricula();
+        }
+
         public string NumeroMatricula
         {
             get => numeroMatricula;
@@ -56,10 +63,10 @@ namespace Sistema_de_Gestión_Universitaria
         }
 
         public void ValidarEdad()
-       {
+        {
             if (Edad < 15)
                 throw new InvalidOperationException("El estudiante debe tener 15 años como minimo");
-       }
+        }
 
         public override string ObtenerRol()
         {
@@ -85,9 +92,18 @@ namespace Sistema_de_Gestión_Universitaria
 
         public TipoContrato TipoContrato { get; set; }
 
+        [ValidacionRango(500, 10000)]
         private decimal salarioBase { get; set; }
 
-        [ValidacionRango(500, 10000)]
+        //Constructor para generar el id automaticamente
+        public Profesor()
+        {
+           
+            Identificacion = GeneradorIdentificaciones.GenerarIdProfesor();
+        }
+
+
+
         public decimal SalarioBase
         {
             get => salarioBase;

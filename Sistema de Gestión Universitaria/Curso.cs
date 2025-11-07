@@ -12,6 +12,12 @@ namespace Sistema_de_Gestión_Universitaria
         public string Nombre {  get; set; }
         public int Creditos {  get; set; }
 
+        //Constructor para generar el id automaticamente
+        public Curso()
+        {
+            Identificacion = GeneradorIdentificaciones.GenerarCodigoCurso();
+        }
+
         public string Identificacion
         {
             get => identificacion;

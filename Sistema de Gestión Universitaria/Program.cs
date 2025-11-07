@@ -2,6 +2,68 @@
 
 namespace Sistema_de_Gestión_Universitaria
 {
+    // ============================================================================
+    // GENERADOR DE IDENTIFICACIONES AUTOMÁTICAS
+    // ============================================================================
+
+    /// <summary>
+    /// Generador de identificaciones únicas para el sistema
+    /// </summary>
+    public static class GeneradorIdentificaciones
+    {
+        private static int contadorEstudiantes = 1000;
+        private static int contadorProfesores = 2000;
+        private static int contadorCursos = 100;
+        private static Random random = new Random();
+
+        /// <summary>
+        /// Genera una identificación única para estudiante (formato: EST-XXXX)
+        /// </summary>
+        public static string GenerarIdEstudiante()
+        {
+            return $"EST-{contadorEstudiantes++:D4}";
+        }
+
+        /// <summary>
+        /// Genera una identificación única para profesor (formato: PROF-XXXX)
+        /// </summary>
+        public static string GenerarIdProfesor()
+        {
+            return $"PROF-{contadorProfesores++:D4}";
+        }
+
+        /// <summary>
+        /// Genera un código único para curso (formato: CURXXX)
+        /// </summary>
+        public static string GenerarCodigoCurso()
+        {
+            return $"CUR{contadorCursos++:D3}";
+        }
+
+        /// <summary>
+        /// Genera un número de matrícula con formato XXX-XXXXX
+        /// Basado en año actual y contador secuencial
+        /// </summary>
+        public static string GenerarNumeroMatricula()
+        {
+            int año = DateTime.Now.Year % 100; // Últimos 2 dígitos del año
+            int secuencial = contadorEstudiantes - 1000; // Número secuencial del estudiante
+
+            // Formato: AÑO-SECUENCIAL (ejemplo: 25-00001 para año 2025)
+            return $"{año:D2}{random.Next(1, 10)}-{secuencial:D5}";
+        }
+
+        /// <summary>
+        /// Reinicia los contadores (útil para testing)
+        /// </summary>
+        public static void ReiniciarContadores()
+        {
+            contadorEstudiantes = 1000;
+            contadorProfesores = 2000;
+            contadorCursos = 100;
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
@@ -171,17 +233,16 @@ namespace Sistema_de_Gestión_Universitaria
         {
             Console.Clear();
             Console.WriteLine("\n═══ AGREGAR ESTUDIANTE ═══\n");
-
+            
             try
             {
                 var estudiante = new Estudiante();
-
-                estudiante.Identificacion = LeerTextoRequerido("Identificación: ");
+               
                 estudiante.Nombre = LeerTextoRequerido("Nombre: ");
                 estudiante.Apellido = LeerTextoRequerido("Apellido: ");
-                estudiante.FechaNacimiento = LeerFecha("Fecha de Nacimiento (dd/mm/yyyy): ");
+                estudiante.FechaNacimiento = LeerFecha("Fecha de Nacimiento (mm/dd/yyyy): ");
                 estudiante.Carrera = LeerTextoRequerido("Carrera: ");
-                estudiante.NumeroMatricula = LeerTextoRequerido("Número de Matrícula: ");
+                
 
                 estudiante.ValidarEdad();
                 repoEstudiantes.Agregar(estudiante);
@@ -405,8 +466,6 @@ namespace Sistema_de_Gestión_Universitaria
             try
             {
                 var profesor = new Profesor();
-
-                profesor.Identificacion = LeerTextoRequerido("Identificación: ");
                 profesor.Nombre = LeerTextoRequerido("Nombre: ");
                 profesor.Apellido = LeerTextoRequerido("Apellido: ");
                 profesor.FechaNacimiento = LeerFecha("Fecha de Nacimiento: ");
@@ -487,11 +546,378 @@ namespace Sistema_de_Gestión_Universitaria
         // Continuará con Cursos, Matrículas, Reportes...
         // Por limitación de espacio, mostraré las funciones principales
 
+        // ═══════════════════════════════════════════════════════════
+        // GESTIÓN DE CURSOS
+        // ═══════════════════════════════════════════════════════════
+
         private bool MenuCursos()
         {
-            Console.WriteLine("Funcionalidad en desarrollo...");
-            Pausar();
+            Console.Clear();
+            Console.WriteLine("\n═══ GESTIÓN DE CURSOS ═══\n");
+            Console.WriteLine("1. Agregar Curso");
+            Console.WriteLine("2. Listar Cursos");
+            Console.WriteLine("3. Buscar Curso");
+            Console.WriteLine("4. Modificar Curso");
+            Console.WriteLine("5. Eliminar Curso");
+            Console.WriteLine("6. Asignar Profesor a Curso");
+            Console.WriteLine("0. Volver");
+
+            Console.Write("\n▶ Opción: ");
+            string opcion = Console.ReadLine();
+
+            try
+            {
+                switch (opcion)
+                {
+                    case "1": AgregarCurso(); break;
+                    case "2": ListarCursos(); break;
+                    case "3": BuscarCurso(); break;
+                    case "4": ModificarCurso(); break;
+                    case "5": EliminarCurso(); break;
+                    case "6": AsignarProfesor(); break;
+                    case "0": return true;
+                    default:
+                        MostrarError("Opción no válida");
+                        Pausar();
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarError($"Error: {ex.Message}");
+                Pausar();
+            }
+
             return true;
+        }
+
+        private void AgregarCurso()
+        {
+            Console.Clear();
+            Console.WriteLine("\n═══ AGREGAR CURSO ═══\n");
+
+            try
+            {
+                var curso = new Curso();
+              
+                curso.Nombre = LeerTextoRequerido("Nombre del Curso: ");
+                curso.Creditos = (int)LeerDecimal("Créditos (1-5): ");
+
+                // Validar rango de créditos
+                if (curso.Creditos < 1 || curso.Creditos > 5)
+                {
+                    MostrarError("Los créditos deben estar entre 1 y 5");
+                    Pausar();
+                    return;
+                }
+
+                // Opcionalmente asignar profesor
+                Console.Write("\n¿Desea asignar un profesor ahora? (S/N): ");
+                if (Console.ReadLine()?.ToUpper() == "S")
+                {
+                    var profesores = repoProfesores.ObtenerTodos();
+
+                    if (profesores.Count == 0)
+                    {
+                        Console.WriteLine("\n⚠ No hay profesores registrados en el sistema.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("\n--- Profesores Disponibles ---");
+                        foreach (var prof in profesores.OrderBy(p => p.Apellido))
+                        {
+                            Console.WriteLine($"  • {prof.Identificacion} - {prof.Nombre} {prof.Apellido} ({prof.Departamento})");
+                        }
+
+                        Console.WriteLine();
+                        string idProf = LeerTextoRequerido("ID del Profesor: ");
+                        var profesor = repoProfesores.BuscarPorId(idProf);
+
+                        if (profesor != null)
+                        {
+                            curso.ProfesorAsignado = profesor;
+                            Console.WriteLine($"✓ Profesor {profesor.Nombre} {profesor.Apellido} asignado");
+                        }
+                        else
+                        {
+                            Console.WriteLine("⚠ Profesor no encontrado. Curso creado sin profesor.");
+                        }
+                    }
+                }
+
+                repoCursos.Agregar(curso);
+
+                MostrarExito($"✓ Curso {curso.Nombre} agregado exitosamente");
+                Console.WriteLine($"   Código: {curso.Identificacion}");
+                Console.WriteLine($"   Créditos: {curso.Creditos}");
+                if (curso.ProfesorAsignado != null)
+                {
+                    Console.WriteLine($"   Profesor: {curso.ProfesorAsignado.Nombre} {curso.ProfesorAsignado.Apellido}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarError($"Error al agregar curso: {ex.Message}");
+            }
+
+            Pausar();
+        }
+
+        private void ListarCursos()
+        {
+            Console.Clear();
+            Console.WriteLine("\n═══ LISTA DE CURSOS ═══\n");
+
+            var cursos = repoCursos.ObtenerTodos();
+
+            if (cursos.Count == 0)
+            {
+                Console.WriteLine("No hay cursos registrados.");
+            }
+            else
+            {
+                Console.WriteLine($"Total: {cursos.Count} curso(s)\n");
+
+                // Agrupar por tener profesor o no
+                var cursosConProfesor = cursos.Where(c => c.ProfesorAsignado != null).OrderBy(c => c.Nombre);
+                var cursosSinProfesor = cursos.Where(c => c.ProfesorAsignado == null).OrderBy(c => c.Nombre);
+
+                if (cursosConProfesor.Any())
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("✓ Cursos con Profesor Asignado:");
+                    Console.ResetColor();
+                    foreach (var curso in cursosConProfesor)
+                    {
+                        Console.WriteLine($"  • {curso}");
+                    }
+                    Console.WriteLine();
+                }
+
+                if (cursosSinProfesor.Any())
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("⚠ Cursos sin Profesor Asignado:");
+                    Console.ResetColor();
+                    foreach (var curso in cursosSinProfesor)
+                    {
+                        Console.WriteLine($"  • [{curso.Identificacion}] {curso.Nombre} - {curso.Creditos} créditos");
+                    }
+                }
+            }
+
+            Pausar();
+        }
+
+        private void BuscarCurso()
+        {
+            Console.Clear();
+            Console.WriteLine("\n═══ BUSCAR CURSO ═══\n");
+            Console.WriteLine("1. Por Código");
+            Console.WriteLine("2. Por Nombre");
+            Console.WriteLine("3. Por Créditos");
+
+            Console.Write("\n▶ Opción: ");
+            string opcion = Console.ReadLine();
+
+            List<Curso> resultados = new List<Curso>();
+
+            try
+            {
+                switch (opcion)
+                {
+                    case "1":
+                        string codigo = LeerTextoRequerido("Código del Curso: ");
+                        var curso = repoCursos.BuscarPorId(codigo);
+                        if (curso != null) resultados.Add(curso);
+                        break;
+
+                    case "2":
+                        string nombre = LeerTextoRequerido("Nombre (o parte del nombre): ").ToLower();
+                        resultados = repoCursos.Buscar(c =>
+                            c.Nombre.ToLower().Contains(nombre));
+                        break;
+
+                    case "3":
+                        int creditos = (int)LeerDecimal("Número de Créditos: ");
+                        resultados = repoCursos.Buscar(c => c.Creditos == creditos);
+                        break;
+                }
+
+                Console.WriteLine($"\n✓ Resultados encontrados: {resultados.Count}");
+                foreach (var c in resultados)
+                {
+                    Console.WriteLine($"  • {c}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarError($"Error en búsqueda: {ex.Message}");
+            }
+
+            Pausar();
+        }
+
+        private void ModificarCurso()
+        {
+            Console.Clear();
+            Console.WriteLine("\n═══ MODIFICAR CURSO ═══\n");
+
+            try
+            {
+                string codigo = LeerTextoRequerido("Código del Curso: ");
+                var curso = repoCursos.BuscarPorId(codigo);
+
+                if (curso == null)
+                {
+                    MostrarError("Curso no encontrado");
+                    Pausar();
+                    return;
+                }
+
+                Console.WriteLine($"\n✓ Curso encontrado: {curso}");
+                Console.WriteLine("\nIngrese los nuevos datos (Enter para mantener):");
+
+                string nuevoNombre = LeerTextoOpcional("Nombre: ");
+                if (!string.IsNullOrWhiteSpace(nuevoNombre))
+                    curso.Nombre = nuevoNombre;
+
+                Console.Write("Créditos (1-5) [Enter para mantener]: ");
+                string creditosStr = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(creditosStr) && int.TryParse(creditosStr, out int creditos))
+                {
+                    if (creditos >= 1 && creditos <= 5)
+                        curso.Creditos = creditos;
+                    else
+                        Console.WriteLine("⚠ Créditos inválidos, se mantiene el valor actual");
+                }
+
+                repoCursos.Actualizar(curso);
+                MostrarExito("✓ Curso modificado exitosamente");
+            }
+            catch (Exception ex)
+            {
+                MostrarError($"Error al modificar: {ex.Message}");
+            }
+
+            Pausar();
+        }
+
+        private void EliminarCurso()
+        {
+            Console.Clear();
+            Console.WriteLine("\n═══ ELIMINAR CURSO ═══\n");
+
+            try
+            {
+                string codigo = LeerTextoRequerido("Código del Curso: ");
+                var curso = repoCursos.BuscarPorId(codigo);
+
+                if (curso == null)
+                {
+                    MostrarError("Curso no encontrado");
+                    Pausar();
+                    return;
+                }
+
+                Console.WriteLine($"\n✓ Curso: {curso}");
+
+                // Verificar si hay estudiantes matriculados
+                var estudiantes = gestorMatriculas.ObtenerEstudiantesPorCurso(codigo);
+                if (estudiantes.Count > 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"\n⚠ ADVERTENCIA: Hay {estudiantes.Count} estudiante(s) matriculado(s) en este curso.");
+                    Console.WriteLine("Si elimina el curso, también se eliminarán las matrículas asociadas.");
+                    Console.ResetColor();
+                }
+
+                Console.Write("\n¿Está seguro de eliminar? (S/N): ");
+
+                if (Console.ReadLine()?.ToUpper() == "S")
+                {
+                    repoCursos.Eliminar(codigo);
+                    MostrarExito("✓ Curso eliminado exitosamente");
+                }
+                else
+                {
+                    Console.WriteLine("Operación cancelada");
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarError($"Error al eliminar: {ex.Message}");
+            }
+
+            Pausar();
+        }
+
+        private void AsignarProfesor()
+        {
+            Console.Clear();
+            Console.WriteLine("\n═══ ASIGNAR PROFESOR A CURSO ═══\n");
+
+            try
+            {
+                string codCurso = LeerTextoRequerido("Código del Curso: ");
+                var curso = repoCursos.BuscarPorId(codCurso);
+
+                if (curso == null)
+                {
+                    MostrarError("Curso no encontrado");
+                    Pausar();
+                    return;
+                }
+
+                Console.WriteLine($"\n✓ Curso: {curso.Nombre} ({curso.Identificacion})");
+                if (curso.ProfesorAsignado != null)
+                {
+                    Console.WriteLine($"Profesor actual: {curso.ProfesorAsignado.Nombre} {curso.ProfesorAsignado.Apellido}");
+                    Console.Write("\n¿Desea cambiar el profesor? (S/N): ");
+                    if (Console.ReadLine()?.ToUpper() != "S")
+                    {
+                        Console.WriteLine("Operación cancelada");
+                        Pausar();
+                        return;
+                    }
+                }
+
+                var profesores = repoProfesores.ObtenerTodos();
+
+                if (profesores.Count == 0)
+                {
+                    MostrarError("No hay profesores registrados en el sistema");
+                    Pausar();
+                    return;
+                }
+
+                Console.WriteLine("\n--- Profesores Disponibles ---");
+                foreach (var prof in profesores.OrderBy(p => p.Apellido))
+                {
+                    Console.WriteLine($"  • {prof.Identificacion} - {prof.Nombre} {prof.Apellido} ({prof.Departamento})");
+                }
+
+                Console.WriteLine();
+                string idProf = LeerTextoRequerido("ID del Profesor: ");
+                var profesor = repoProfesores.BuscarPorId(idProf);
+
+                if (profesor == null)
+                {
+                    MostrarError("Profesor no encontrado");
+                }
+                else
+                {
+                    curso.ProfesorAsignado = profesor;
+                    repoCursos.Actualizar(curso);
+                    MostrarExito($"✓ Profesor {profesor.Nombre} {profesor.Apellido} asignado a {curso.Nombre}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarError($"Error: {ex.Message}");
+            }
+
+            Pausar();
         }
 
         private bool MatricularEstudiante()
@@ -680,7 +1106,7 @@ namespace Sistema_de_Gestión_Universitaria
             {
                 Console.Write(mensaje);
                 string texto = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(texto))
+                if (!string.IsNullOrWhiteSpace(texto) )
                     return texto;
                 MostrarError("Este campo es requerido");
             }
@@ -699,7 +1125,7 @@ namespace Sistema_de_Gestión_Universitaria
                 Console.Write(mensaje);
                 if (DateTime.TryParse(Console.ReadLine(), out DateTime fecha))
                     return fecha;
-                MostrarError("Fecha inválida. Use formato dd/mm/yyyy");
+                MostrarError("Fecha inválida. Use formato mm/dd/yyyy");
             }
         }
 
