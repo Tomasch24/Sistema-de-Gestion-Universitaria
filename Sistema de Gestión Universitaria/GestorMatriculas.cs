@@ -23,9 +23,9 @@ namespace Sistema_de_Gestión_Universitaria
 
     
     
-        /// <summary>
-        /// Matricula un estudiante en un curso
-        /// </summary>
+        //
+        //TODO Matricula un estudiante en un curso
+        //
         public Matricula MatricularEstudiante(Estudiante estudiante, Curso curso)
         {
             if (estudiante == null)
@@ -49,9 +49,9 @@ namespace Sistema_de_Gestión_Universitaria
             return matricula;
         }
 
-        /// <summary>
-        /// Agrega una calificación a una matrícula específica
-        /// </summary>
+        //
+        //TODO Agrega una calificación a una matrícula específica
+        //
         public void AgregarCalificacion(string idEstudiante, string IDCurso, decimal calificacion)
         {
             if (string.IsNullOrWhiteSpace(idEstudiante))
@@ -75,9 +75,9 @@ namespace Sistema_de_Gestión_Universitaria
             matricula.AgregarCalificacion(calificacion);
         }
 
-        /// <summary>
-        /// Obtiene todas las matrículas de un estudiante
-        /// </summary>
+        //
+        //TODO Obtiene todas las matrículas de un estudiante
+        //
         public List<Matricula> ObtenerMatriculasPorEstudiante(string idEstudiante)
         {
             if (string.IsNullOrWhiteSpace(idEstudiante))
@@ -87,9 +87,9 @@ namespace Sistema_de_Gestión_Universitaria
             return matriculas.Where(m => m.Estudiante.Identificacion == idEstudiante).ToList();
         }
 
-        /// <summary>
-        /// Obtiene todos los estudiantes matriculados en un curso
-        /// </summary>
+        //
+        //TODO Obtiene todos los estudiantes matriculados en un curso
+        //
         public List<Estudiante> ObtenerEstudiantesPorCurso(string codigoCurso)
         {
             if (string.IsNullOrWhiteSpace(codigoCurso))
@@ -103,9 +103,9 @@ namespace Sistema_de_Gestión_Universitaria
                 .ToList();
         }
 
-        /// <summary>
-        /// Genera un reporte detallado de un estudiante
-        /// </summary>
+        //
+        //TODO Genera un reporte detallado de un estudiante
+        //
         public string GenerarReporteEstudiante(string idEstudiante)
         {
             if (string.IsNullOrWhiteSpace(idEstudiante))
@@ -179,17 +179,17 @@ namespace Sistema_de_Gestión_Universitaria
             return sb.ToString();
         }
 
-        /// <summary>
-        /// Obtiene todas las matrículas del sistema
-        /// </summary>
+        //
+        //TODO Obtiene todas las matrículas del sistema
+        //
         public List<Matricula> ObtenerTodasLasMatriculas()
         {
             return matriculas.ToList();
         }
 
-        /// <summary>
-        /// Obtiene el número total de matrículas
-        /// </summary>
+        //
+        //TODO Obtiene el número total de matrículas
+        //
         public int ObtenerTotalMatriculas()
         {
             return matriculas.Count;

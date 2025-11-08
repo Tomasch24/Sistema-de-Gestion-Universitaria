@@ -8,12 +8,12 @@ namespace Sistema_de_Gestión_Universitaria
 {
     public class Repositorio<T> where T : IIdentificable
     {
-        // Dictionary para almacenamiento eficiente por clave
+        //TODO Dictionary para almacenamiento eficiente por clave
         private Dictionary<string, T> items = new Dictionary<string, T>();
 
-        /// <summary>
-        /// Agrega un elemento al repositorio
-        /// </summary>
+        //
+        //TODO Agrega un elemento al repositorio
+        //
         public void Agregar(T item)
         {
             if (item == null)
@@ -26,9 +26,9 @@ namespace Sistema_de_Gestión_Universitaria
             items.Add(item.Identificacion, item);
         }
 
-        /// <summary>
-        /// Elimina un elemento por su identificación
-        /// </summary>
+        //
+        //TODO Elimina un elemento por su identificación
+        //
         public bool Eliminar(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -37,9 +37,9 @@ namespace Sistema_de_Gestión_Universitaria
             return items.Remove(id);
         }
 
-        /// <summary>
-        /// Busca un elemento por su identificación
-        /// </summary>
+        //
+        //TODO Busca un elemento por su identificación
+        //
         public T BuscarPorId(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -48,18 +48,18 @@ namespace Sistema_de_Gestión_Universitaria
             items.TryGetValue(id, out T item);
             return item;
         }
-        /// <summary>
-        /// Obtiene todos los elementos del repositorio
-        /// </summary>
+        //
+        //TODO Obtiene todos los elementos del repositorio
+        //
         public List<T> ObtenerTodos()
         {
             return items.Values.ToList();
         }
 
-        /// <summary>
-        /// Busca elementos usando un predicado (delegate)
-        /// Aplica: Delegates, Lambda Expressions
-        /// </summary>
+        //
+        //TODO Busca elementos usando un predicado (delegate)
+        // Aplica: Delegates, Lambda Expressions
+        //
         public List<T> Buscar(Func<T, bool> predicado)
         {
             if (predicado == null)
@@ -69,9 +69,9 @@ namespace Sistema_de_Gestión_Universitaria
             return items.Values.Where(predicado).ToList();
         }
 
-        /// <summary>
-        /// Cuenta elementos que cumplen un criterio
-        /// </summary>
+        //
+        //TODO Cuenta elementos que cumplen un criterio
+        //
         public int Contar(Func<T, bool> predicado = null)
         {
             if (predicado == null)
@@ -80,17 +80,17 @@ namespace Sistema_de_Gestión_Universitaria
             return items.Values.Count(predicado);
         }
 
-        /// <summary>
-        /// Verifica si existe un elemento con el ID dado
-        /// </summary>
+        //
+        //TODO Verifica si existe un elemento con el ID dado
+        //
         public bool Existe(string id)
         {
             return items.ContainsKey(id);
         }
 
-        /// <summary>
-        /// Actualiza un elemento existente
-        /// </summary>
+        //
+        //TODO Actualiza un elemento existente
+        //
         public void Actualizar(T item)
         {
             if (item == null)
@@ -103,9 +103,9 @@ namespace Sistema_de_Gestión_Universitaria
             items[item.Identificacion] = item;
         }
 
-        /// <summary>
-        /// Limpia todos los elementos del repositorio
-        /// </summary>
+        //
+        //TODO Limpia todos los elementos del repositorio
+        //
         public void LimpiarTodo()
         {
             items.Clear();

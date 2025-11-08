@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sistema_de_Gestión_Universitaria
 {
-    /// <summary>
-    /// Atributo para validar rangos numéricos
-    /// </summary>
+
+    //TODO Atributo para validar rangos numéricos
+
     [AttributeUsage(AttributeTargets.Property)]
     public class ValidacionRangoAttribute : Attribute
     {
@@ -33,9 +33,8 @@ namespace Sistema_de_Gestión_Universitaria
         }
     }
 
-    /// <summary>
-    /// Atributo para campos requeridos
-    /// </summary>
+    //TODO Atributo para campos requeridos
+    
     [AttributeUsage(AttributeTargets.Property)]
     public class RequeridoAttribute : Attribute
     {
@@ -63,9 +62,9 @@ namespace Sistema_de_Gestión_Universitaria
         }
     }
 
-    /// <summary>
-    /// Atributo para especificar formato de strings
-    /// </summary>
+ 
+    //TODO Atributo para especificar formato de strings
+
     [AttributeUsage(AttributeTargets.Property)]
     public class FormatoAttribute : Attribute
     {
@@ -90,14 +89,14 @@ namespace Sistema_de_Gestión_Universitaria
         }
     }
 
-    /// <summary>
-    /// Clase para validar objetos usando atributos personalizados y Reflection
-    /// </summary>
+
+    //TODO Clase para validar objetos usando atributos personalizados y Reflection
+ 
     public class Validador
     {
-        /// <summary>
-        /// Valida un objeto y retorna lista de errores
-        /// </summary>
+   
+        //TODO Valida un objeto y retorna lista de errores
+      
         public static List<string> ValidarObjeto(object obj)
         {
             var errores = new List<string>();
@@ -155,9 +154,9 @@ namespace Sistema_de_Gestión_Universitaria
             return errores;
         }
 
-        /// <summary>
-        /// Muestra los atributos de validación de una clase
-        /// </summary>
+   
+        //TODO Muestra los atributos de validación de una clase
+     
         public static void MostrarAtributosValidacion(Type tipo)
         {
             Console.WriteLine($"\n╔═══ ATRIBUTOS DE VALIDACIÓN: {tipo.Name} ═══╗");

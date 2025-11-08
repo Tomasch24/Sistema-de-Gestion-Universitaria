@@ -8,10 +8,10 @@ namespace Sistema_de_Gestión_Universitaria
 {
     public class TiposEspeciales
     {
-        /// <summary>
-        /// Convierte y formatea datos de diferentes tipos usando Pattern Matching
-        /// Aplica: Boxing/Unboxing, Pattern Matching, Conversiones
-        /// </summary>
+        //
+        //TODO Convierte y formatea datos de diferentes tipos usando Pattern Matching
+        // Aplica: Boxing/Unboxing, Pattern Matching, Conversiones
+        //
         public static string ConvertirDatos(object dato)
         {
             // Pattern Matching con switch expression
@@ -30,10 +30,10 @@ namespace Sistema_de_Gestión_Universitaria
         }
     
     
-        /// <summary>
-        /// Parsea una calificación de forma segura usando TryParse
-        /// Aplica: TryParse, Validaciones
-        /// </summary>
+        //
+        //TODO Parsea una calificación de forma segura usando TryParse
+        //Aplica: TryParse, Validaciones
+        //
         public static (bool exito, decimal valor, string mensaje) ParsearCalificacion(string entrada)
         {
             if (string.IsNullOrWhiteSpace(entrada))
@@ -50,9 +50,9 @@ namespace Sistema_de_Gestión_Universitaria
             return (true, calificacion, "Calificación válida");
         }
 
-        /// <summary>
-        /// Demuestra Boxing y Unboxing con calificaciones
-        /// </summary>
+        //
+        //TODO Demuestra Boxing y Unboxing con calificaciones
+        //
         public static void DemostrarBoxingUnboxing()
         {
             Console.WriteLine("\n═══ DEMOSTRACIÓN DE BOXING Y UNBOXING ═══");

@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Sistema_de_Gestión_Universitaria
 {
-    /// <summary>
+   
     /// Clase para generar datos de prueba y demostrar funcionalidades
-    /// </summary>
+   
     public class GeneradorDatosPrueba
     {
         private static Random random = new Random();
 
-        /// <summary>
+        //
         /// Genera todos los datos de prueba del sistema
-        /// </summary>
+        //
         public static void GenerarDatosPrueba(
             Repositorio<Estudiante> repoEstudiantes,
             Repositorio<Profesor> repoProfesores,
@@ -70,9 +70,9 @@ namespace Sistema_de_Gestión_Universitaria
             Console.ResetColor();
         }
 
-        /// <summary>
+        //
         /// Genera una lista de estudiantes con datos aleatorios
-        /// </summary>
+        //
         private static List<Estudiante> GenerarEstudiantes(int cantidad)
         {
             var estudiantes = new List<Estudiante>();
@@ -109,9 +109,9 @@ namespace Sistema_de_Gestión_Universitaria
             return estudiantes;
         }
 
-        /// <summary>
+        //
         /// Genera una lista de profesores con datos aleatorios
-        /// </summary>
+        //
         private static List<Profesor> GenerarProfesores(int cantidad)
         {
             var profesores = new List<Profesor>();
@@ -144,9 +144,9 @@ namespace Sistema_de_Gestión_Universitaria
             return profesores;
         }
 
-        /// <summary>
+        //
         /// Genera una lista de cursos con profesores asignados
-        /// </summary>
+        //
         private static List<Curso> GenerarCursos(int cantidad, List<Profesor> profesores)
         {
             var cursos = new List<Curso>();
@@ -175,9 +175,9 @@ namespace Sistema_de_Gestión_Universitaria
             return cursos;
         }
 
-        /// <summary>
+        //
         /// Genera matrículas aleatorias
-        /// </summary>
+        //
         private static int GenerarMatriculas(int cantidad, List<Estudiante> estudiantes,
                                             List<Curso> cursos, GestorMatriculas gestor)
         {
@@ -205,9 +205,9 @@ namespace Sistema_de_Gestión_Universitaria
             return creadas;
         }
 
-        /// <summary>
+        //
         /// Genera calificaciones aleatorias para todas las matrículas
-        /// </summary>
+        //
         private static int GenerarCalificaciones(GestorMatriculas gestor)
         {
             int calificaciones = 0;
@@ -243,9 +243,10 @@ namespace Sistema_de_Gestión_Universitaria
             return calificaciones;
         }
 
-        /// <summary>
+
+        //
         /// Demuestra todas las funcionalidades implementadas
-        /// </summary>
+        //
         public static void DemostrarFuncionalidades(
             Repositorio<Estudiante> repoEstudiantes,
             Repositorio<Profesor> repoProfesores,

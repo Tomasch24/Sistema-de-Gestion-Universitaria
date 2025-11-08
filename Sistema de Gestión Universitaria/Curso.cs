@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sistema_de_Gestión_Universitaria
 {
+    //TODO Clase curso
     public class Curso : IIdentificable
     {
         private string identificacion;

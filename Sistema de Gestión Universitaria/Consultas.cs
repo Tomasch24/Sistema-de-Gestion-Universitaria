@@ -8,10 +8,10 @@ namespace Sistema_de_Gestión_Universitaria
 {
     public static class Consultas
     {
-        /// <summary>
-        /// Obtiene los 10 estudiantes con mejor promedio general
-        /// Aplica: LINQ, OrderByDescending, Take, Select
-        /// </summary>
+        
+        //TODO Obtiene los 10 estudiantes con mejor promedio general
+        // Aplica: LINQ, OrderByDescending, Take, Select
+      
         public static List<(Estudiante estudiante, decimal promedio)>
             ObtenerTop10Estudiantes(this GestorMatriculas gestor, Repositorio<Estudiante> repoEstudiantes)
         {
@@ -42,10 +42,10 @@ namespace Sistema_de_Gestión_Universitaria
             return estudiantesConPromedio;
         }
 
-        /// <summary>
-        /// Obtiene estudiantes con promedio menor a 7.0 (en riesgo)
-        /// Aplica: LINQ, Where, Lambda expressions
-        /// </summary>
+       
+        //TODO Obtiene estudiantes con promedio menor a 7.0 (en riesgo)
+        // Aplica: LINQ, Where, Lambda expressions
+    
         public static List<(Estudiante estudiante, decimal promedio, int cursosEnRiesgo)>
             ObtenerEstudiantesEnRiesgo(this GestorMatriculas gestor, Repositorio<Estudiante> repoEstudiantes)
         {
@@ -76,10 +76,9 @@ namespace Sistema_de_Gestión_Universitaria
             return estudiantesEnRiesgo;
         }
 
-        /// <summary>
-        /// Obtiene cursos ordenados por popularidad (cantidad de estudiantes)
-        /// Aplica: GroupBy, OrderByDescending, Select
-        /// </summary>
+        //TODO Obtiene cursos ordenados por popularidad (cantidad de estudiantes)
+        //Aplica: GroupBy, OrderByDescending, Select
+
         public static List<(Curso curso, int cantidadEstudiantes, decimal promedioDelCurso)>
             ObtenerCursosMasPopulares(this GestorMatriculas gestor, Repositorio<Curso> repoCursos)
         {
@@ -104,10 +103,10 @@ namespace Sistema_de_Gestión_Universitaria
             return cursosPopulares;
         }
 
-        /// <summary>
-        /// Calcula el promedio general de todos los estudiantes
-        /// Aplica: SelectMany, Average
-        /// </summary>
+      
+        //TODO Calcula el promedio general de todos los estudiantes
+        // Aplica: SelectMany, Average
+
         public static decimal ObtenerPromedioGeneral(this GestorMatriculas gestor)
         {
             var todasMatriculas = gestor.ObtenerTodasLasMatriculas();
@@ -123,10 +122,10 @@ namespace Sistema_de_Gestión_Universitaria
             return matriculasConNotas.Average(m => m.ObtenerPromedio());
         }
 
-        /// <summary>
-        /// Obtiene estadísticas agrupadas por carrera
+ 
+        ///TODO Obtiene estadísticas agrupadas por carrera
         /// Aplica: GroupBy, Select, Aggregate functions
-        /// </summary>
+      
         public static List<EstadisticaCarrera> ObtenerEstadisticasPorCarrera(
             this GestorMatriculas gestor, Repositorio<Estudiante> repoEstudiantes)
         {
@@ -176,10 +175,10 @@ namespace Sistema_de_Gestión_Universitaria
             return estadisticas;
         }
 
-        /// <summary>
-        /// Búsqueda flexible de estudiantes usando predicado personalizado
-        /// Aplica: Func<T, bool>, Lambda expressions
-        /// </summary>
+
+        //TODO Búsqueda flexible de estudiantes usando predicado personalizado
+        // Aplica: Func<T, bool>, Lambda expressions
+ 
         public static List<Estudiante> BuscarEstudiantes(
             this Repositorio<Estudiante> repositorio, Func<Estudiante, bool> criterio)
         {
@@ -187,9 +186,9 @@ namespace Sistema_de_Gestión_Universitaria
         }
     }
 
-    /// <summary>
-    /// Clase para almacenar estadísticas por carrera
-    /// </summary>
+
+    //TODO Clase para almacenar estadísticas por carrera
+
     public class EstadisticaCarrera
     {
         public string Carrera { get; set; }
@@ -212,9 +211,9 @@ namespace Sistema_de_Gestión_Universitaria
         }
     }
 
-    /// <summary>
-    /// Expresiones Lambda adicionales para filtrado y ordenamiento
-    /// </summary>
+
+    //TODO Expresiones Lambda adicionales para filtrado y ordenamiento
+
     public static class ExpresionesLambdaAdicionales
     {
         // Lambda 1: Filtrar estudiantes por edad
@@ -241,9 +240,9 @@ namespace Sistema_de_Gestión_Universitaria
         public static Func<Profesor, bool> FiltrarPorTipoContrato(TipoContrato tipo) =>
             prof => prof.TipoContrato == tipo;
 
-        /// <summary>
-        /// Demostración de uso de lambdas personalizadas
-        /// </summary>
+    
+        //TODO Demostración de uso de lambdas personalizadas
+        
         public static void DemostrarExpresionesLambda(
             Repositorio<Estudiante> repoEstudiantes,
             Repositorio<Profesor> repoProfesores)

@@ -2,13 +2,10 @@
 
 namespace Sistema_de_Gestión_Universitaria
 {
-    // ============================================================================
-    // GENERADOR DE IDENTIFICACIONES AUTOMÁTICAS
-    // ============================================================================
-
-    /// <summary>
-    /// Generador de identificaciones únicas para el sistema
-    /// </summary>
+   
+    //
+    //TODO Generador de identificaciones únicas para el sistema
+    //
     public static class GeneradorIdentificaciones
     {
         private static int contadorEstudiantes = 1000;
@@ -16,34 +13,34 @@ namespace Sistema_de_Gestión_Universitaria
         private static int contadorCursos = 100;
         private static Random random = new Random();
 
-        /// <summary>
-        /// Genera una identificación única para estudiante (formato: EST-XXXX)
-        /// </summary>
+        //
+        //TODO Genera una identificación única para estudiante (formato: EST-XXXX)
+        //
         public static string GenerarIdEstudiante()
         {
             return $"EST-{contadorEstudiantes++:D4}";
         }
 
-        /// <summary>
-        /// Genera una identificación única para profesor (formato: PROF-XXXX)
-        /// </summary>
+        //
+        //TODO Genera una identificación única para profesor (formato: PROF-XXXX)
+        //
         public static string GenerarIdProfesor()
         {
             return $"PROF-{contadorProfesores++:D4}";
         }
 
-        /// <summary>
-        /// Genera un código único para curso (formato: CURXXX)
-        /// </summary>
+        //
+        //TODO Genera un código único para curso (formato: CURXXX)
+        //
         public static string GenerarCodigoCurso()
         {
             return $"CUR{contadorCursos++:D3}";
         }
 
-        /// <summary>
-        /// Genera un número de matrícula con formato XXX-XXXXX
-        /// Basado en año actual y contador secuencial
-        /// </summary>
+        //
+        //TODO Genera un número de matrícula con formato XXX-XXXXX
+        // Basado en año actual y contador secuencial
+        //
         public static string GenerarNumeroMatricula()
         {
             int año = DateTime.Now.Year % 100; // Últimos 2 dígitos del año
@@ -53,9 +50,9 @@ namespace Sistema_de_Gestión_Universitaria
             return $"{año:D2}{random.Next(1, 10)}-{secuencial:D5}";
         }
 
-        /// <summary>
-        /// Reinicia los contadores (útil para testing)
-        /// </summary>
+        //
+        //TODO Reinicia los contadores (útil para testing)
+        //
         public static void ReiniciarContadores()
         {
             contadorEstudiantes = 1000;
@@ -75,9 +72,9 @@ namespace Sistema_de_Gestión_Universitaria
         }
     }
 
-    /// <summary>
-    /// Sistema completo con todas las funcionalidades integradas
-    /// </summary>
+    //
+    //TODO Sistema completo con todas las funcionalidades integradas
+    //
     public class SistemaUniversitarioCompleto
     {
         private Repositorio<Estudiante> repoEstudiantes;
@@ -186,9 +183,9 @@ namespace Sistema_de_Gestión_Universitaria
             }
         }
 
-        // ═══════════════════════════════════════════════════════════
-        // GESTIÓN DE ESTUDIANTES
-        // ═══════════════════════════════════════════════════════════
+    
+        //TODO GESTIÓN DE ESTUDIANTES
+       
 
         private bool MenuEstudiantes()
         {
@@ -423,9 +420,9 @@ namespace Sistema_de_Gestión_Universitaria
             Pausar();
         }
 
-        // ═══════════════════════════════════════════════════════════
-        // GESTIÓN DE PROFESORES
-        // ═══════════════════════════════════════════════════════════
+       
+        //TODO GESTIÓN DE PROFESORES
+      
 
         private bool MenuProfesores()
         {
@@ -434,6 +431,7 @@ namespace Sistema_de_Gestión_Universitaria
             Console.WriteLine("1. Agregar Profesor");
             Console.WriteLine("2. Listar Profesores");
             Console.WriteLine("3. Buscar Profesor");
+            Console.WriteLine("4. Eliminar Profesor");
             Console.WriteLine("0. Volver");
 
             Console.Write("\n▶ Opción: ");
@@ -446,6 +444,7 @@ namespace Sistema_de_Gestión_Universitaria
                     case "1": AgregarProfesor(); break;
                     case "2": ListarProfesores(); break;
                     case "3": BuscarProfesor(); break;
+                    case "4": EliminarProfesor(); break;
                     case "0": return true;
                 }
             }
@@ -542,14 +541,46 @@ namespace Sistema_de_Gestión_Universitaria
 
             Pausar();
         }
+        private void EliminarProfesor()
+        {
+            Console.Clear();
+            Console.WriteLine("\n═══ ELIMINAR PROFESOR ═══\n");
 
-        // Continuará con Cursos, Matrículas, Reportes...
-        // Por limitación de espacio, mostraré las funciones principales
+            try
+            {
+                string id = LeerTextoRequerido("Identificación del Profesor: ");
+                var profesor = repoProfesores.BuscarPorId(id);
 
-        // ═══════════════════════════════════════════════════════════
-        // GESTIÓN DE CURSOS
-        // ═══════════════════════════════════════════════════════════
+                if (profesor == null)
+                {
+                    MostrarError("Profesor no encontrado");
+                    Pausar();
+                    return;
+                }
 
+                Console.WriteLine($"\n✓ Profesor: {profesor}");
+                Console.Write("\n¿Está seguro de eliminar? (S/N): ");
+
+                if (Console.ReadLine().ToUpper() == "S")
+                {
+                    repoProfesores.Eliminar(id);
+                    MostrarExito("✓ Profesor eliminado exitosamente");
+                }
+                else
+                {
+                    Console.WriteLine("Operación cancelada");
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarError($"Error al eliminar: {ex.Message}");
+            }
+
+            Pausar();
+        }
+
+
+        //TODO GESTIÓN DE CURSOS
         private bool MenuCursos()
         {
             Console.Clear();
@@ -1076,9 +1107,8 @@ namespace Sistema_de_Gestión_Universitaria
             return true;
         }
 
-        // ═══════════════════════════════════════════════════════════
-        // MÉTODOS AUXILIARES
-        // ═══════════════════════════════════════════════════════════
+        //TODO MÉTODOS AUXILIARES
+    
 
         private void MostrarError(string mensaje)
         {
@@ -1106,7 +1136,8 @@ namespace Sistema_de_Gestión_Universitaria
             {
                 Console.Write(mensaje);
                 string texto = Console.ReadLine();
-                if (!string.IsNullOrWhiteSpace(texto) )
+
+                if (!string.IsNullOrWhiteSpace(texto))
                     return texto;
                 MostrarError("Este campo es requerido");
             }

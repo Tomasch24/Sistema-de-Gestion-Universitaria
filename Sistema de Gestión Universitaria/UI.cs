@@ -21,9 +21,9 @@ namespace Sistema_de_Gestión_Universitaria
             gestorMatriculas = new GestorMatriculas(repoEstudiantes, repoCursos);
         }
 
-        /// <summary>
-        /// Inicia el sistema con menú principal
-        /// </summary>
+        //
+        //TODO Inicia el sistema con menú principal
+        //
         public void Iniciar()
         {
             MostrarBienvenida();
@@ -104,9 +104,9 @@ namespace Sistema_de_Gestión_Universitaria
             };
         }
 
-        // ═══════════════════════════════════════════════════════════
-        // GESTIÓN DE ESTUDIANTES
-        // ═══════════════════════════════════════════════════════════
+
+        //TODO GESTIÓN DE ESTUDIANTES
+     
 
         private bool MenuEstudiantes()
         {
@@ -297,9 +297,8 @@ namespace Sistema_de_Gestión_Universitaria
             Pausar();
         }
 
-        // ═══════════════════════════════════════════════════════════
-        // GESTIÓN DE PROFESORES (Similar a Estudiantes)
-        // ═══════════════════════════════════════════════════════════
+        
+        //TODO GESTIÓN DE PROFESORES 
 
         private bool MenuProfesores()
         {
@@ -392,9 +391,7 @@ namespace Sistema_de_Gestión_Universitaria
             Pausar();
         }
 
-        // Continuará en la siguiente sección...
-        // (Métodos auxiliares y más funcionalidades)
-
+       
         private bool OpcionInvalida()
         {
             MostrarError("Opción no válida");
@@ -474,7 +471,7 @@ namespace Sistema_de_Gestión_Universitaria
             Console.ResetColor();
         }
 
-        // Continuaremos con más métodos...
+        //TODO Metods Auxiliares
         private bool MenuCursos() { return true; }
         private bool MatricularEstudiante() { return true; }
         private bool RegistrarCalificaciones() { return true; }

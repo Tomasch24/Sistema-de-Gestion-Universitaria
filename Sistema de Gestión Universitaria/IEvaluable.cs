@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sistema_de_Gestión_Universitaria
 {
+    //TODO Interfaz IEvaluable
     public  interface IEvaluable
     {
         public void AgregarCalificacion(decimal Calificacion);

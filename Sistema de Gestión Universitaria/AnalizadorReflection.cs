@@ -9,9 +9,9 @@ namespace Sistema_de_Gestión_Universitaria
 {
     public class AnalizadorReflection
     {
-        /// <summary>
-        /// Muestra todas las propiedades de un tipo
-        /// </summary>
+       
+        //TODO Muestra todas las propiedades de un tipo
+       
         public static void MostrarPropiedades(Type tipo)
         {
             Console.WriteLine($"\n╔═══ PROPIEDADES DE {tipo.Name.ToUpper()} ═══╗");
@@ -44,9 +44,8 @@ namespace Sistema_de_Gestión_Universitaria
             Console.WriteLine("╚" + new string('═', 50) + "╝");
         }
 
-        /// <summary>
-        /// Muestra todos los métodos públicos de un tipo
-        /// </summary>
+        //TODO Muestra todos los métodos públicos de un tipo
+       
         public static void MostrarMetodos(Type tipo)
         {
             Console.WriteLine($"\n╔═══ MÉTODOS DE {tipo.Name.ToUpper()} ═══╗");
@@ -78,9 +77,9 @@ namespace Sistema_de_Gestión_Universitaria
             Console.WriteLine("╚" + new string('═', 50) + "╝");
         }
 
-        /// <summary>
-        /// Crea una instancia dinámicamente usando Reflection
-        /// </summary>
+
+        //TODO Crea una instancia dinámicamente usando Reflection
+       
         public static object CrearInstanciaDinamica(Type tipo, params object[] parametros)
         {
             try
@@ -97,9 +96,9 @@ namespace Sistema_de_Gestión_Universitaria
             }
         }
 
-        /// <summary>
-        /// Invoca un método dinámicamente usando Reflection
-        /// </summary>
+     
+        //TODO Invoca un método dinámicamente usando Reflection
+       
         public static object InvocarMetodo(object instancia, string nombreMetodo,
             params object[] parametros)
         {
@@ -132,9 +131,9 @@ namespace Sistema_de_Gestión_Universitaria
             }
         }
 
-        /// <summary>
-        /// Analiza completamente una clase
-        /// </summary>
+       
+        //TODO Analiza completamente una clase
+        
         public static void AnalizarClaseCompleta(Type tipo)
         {
             Console.WriteLine("\n" + new string('═', 60));

@@ -52,9 +52,9 @@ namespace Sistema_de_Gestión_Universitaria
             return ObtenerPromedio() >= NOTA_MINIMA_APROBACION;
         }
 
-        /// <summary>
-        /// Retorna el estado actual de la matrícula
-        /// </summary>
+        //
+        //TODO Retorna el estado actual de la matrícula
+        //
         public string ObtenerEstado()
         {
             if (calificaciones.Count == 0)

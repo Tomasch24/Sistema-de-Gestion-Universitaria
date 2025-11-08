@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sistema_de_Gestión_Universitaria
 {
+    //TODO Clase abstracta Persona
     public abstract class Persona : IIdentificable
     {
         private string identificacion;
@@ -36,6 +37,8 @@ namespace Sistema_de_Gestión_Universitaria
 
 
     }
+
+    //TODO Clase estudiante heredando persona
     public class Estudiante : Persona
     {
         public string Carrera { get; set; }
@@ -86,6 +89,8 @@ namespace Sistema_de_Gestión_Universitaria
         Temporal,
         Por_Horas
     }
+
+    //TODO Clase profesor heredando persona
     public class Profesor : Persona
     {
         public string Departamento { get; set; }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sistema_de_Gestión_Universitaria
 {
+
     public abstract class PersonaIdentificable : Persona, IIdentificable
     {
         // Ya tiene la propiedad Identificacion heredada de Persona
